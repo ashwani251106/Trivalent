@@ -1,0 +1,81 @@
+.flowing-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background-color: var(--bg-color);
+}
+
+.flow-blob {
+  position: absolute;
+  filter: blur(300px);
+  border-radius: 50%;
+  animation: flowOrbit 30s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: screen;
+}
+
+.blob-red {
+  background: var(--accent-red);
+  width: 60vw;
+  height: 60vh;
+  top: -10vh;
+  left: -10vw;
+  opacity: 0.06;
+  animation-duration: 25s;
+  animation-delay: -5s;
+}
+
+.blob-blue {
+  background: var(--accent-blue);
+  width: 70vw;
+  height: 70vh;
+  bottom: -20vh;
+  right: -10vw;
+  opacity: 0.08;
+  animation-duration: 35s;
+  animation-direction: reverse;
+}
+
+.blob-purple {
+  background: var(--accent-purple);
+  width: 50vw;
+  height: 50vh;
+  top: 30vh;
+  left: 30vw;
+  opacity: 0.05;
+  animation-duration: 40s;
+  animation-delay: -15s;
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.interactive-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes flowOrbit {
+  0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+  25% { transform: scale(1.2) translate(5vw, 5vh) rotate(90deg); }
+  50% { transform: scale(0.9) translate(10vw, -10vh) rotate(180deg); }
+  75% { transform: scale(1.1) translate(-5vw, -5vh) rotate(270deg); }
+  100% { transform: scale(1) translate(0, 0) rotate(360deg); }
+}

@@ -1,0 +1,58 @@
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.loader-logo-container {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.loader-progress-bar {
+  width: 250px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.loader-progress-fill {
+  height: 100%;
+  background: var(--gradient-animated);
+  background-size: 200% auto;
+  animation: bgPan 2s linear infinite;
+  border-radius: 4px;
+}
+
+.loader-text {
+  font-size: 0.9rem;
+  letter-spacing: 4px;
+  font-weight: 700;
+}

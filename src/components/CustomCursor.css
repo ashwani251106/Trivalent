@@ -1,0 +1,49 @@
+.cursor-dot-new {
+  position: fixed;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  mix-blend-mode: exclusion;
+  box-shadow: 0 0 10px var(--accent-blue);
+}
+
+.cursor-outline-new {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent-red);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  mix-blend-mode: exclusion;
+}
+
+.cursor-text {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeInText 0.3s forwards;
+}
+
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
+
+/* Hide default cursor globally */
+body, a, button, input {
+  cursor: none !important;
+}
