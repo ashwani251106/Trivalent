@@ -72,9 +72,9 @@ const KnowUs = () => {
     {
       id: 2,
       name: "Ayan Baruah",
-      role: "Lead Frontend Architect",
+      role: "Lead Backend Architect",
       bio: "Translates abstract concepts into breathtaking, intuitive user experiences that captivate and engage.",
-      detailedBio: "I bridge   the gap between human psychology and digital interfaces. I don't just design screens; I craft entire ecosystems of interaction. From wireframing complex user flows to polishing the final micro-interactions, I ensure the user is always at the center of the experience.",
+      detailedBio: "I architect the high-performance engines and distributed systems that power modern applications. My focus is on building scalable server-side logic, optimizing complex database architectures, and ensuring rock-solid security. From API orchestration to cloud infrastructure, I design invisible yet essential systems that remain fast and stable under heavy load.",
       techStack: ["Node.js", "Python", "SQL", "PostgreSQL", "MongoDB", "Kubernetes", "nextjs", "Docker", "AWS", "MERN Stack"],
       expertise: ["User Experience (UX)", "Interface Design (UI)", "Frontend Design", "Motion Graphics"],
       imageUrl: ayanPhoto,
@@ -83,11 +83,11 @@ const KnowUs = () => {
     {
       id: 3,
       name: "Ashwani Singh",
-      role: "Frontend Developer",
+      role: "Lead Frontend Developer",
       bio: "Turns static designs into dynamic, high-performance web applications using React, NextJS, and pure magic.",
       detailedBio: "I lives at the intersection of design and code. Specializing in advanced frontend architectures and complex animations, he brings static mockups to life. His expertise in the MERN stack and Next.js allows him to build seamless, SEO-friendly, and blazing fast single-page applications.",
       techStack: ["React", "Next js", "TypeScript", "MERN Stack", "Framer Motion", "GSAP", "Tailwind CSS", "Redux Toolkit", "WebGL", "Three.js"],
-      expertise: ["Frontend Architecture", "Database Management", "WebGL / 3D Graphics", "Performance Tuning"],
+      expertise: ["Frontend Architecture", "Blender", "WebGL / 3D Graphics", "Performance Tuning"],
       imageUrl: ashwaniPhoto,
       imagePosition: 'center 20%',
       links: { linkedin: "https://www.linkedin.com/in/ashwani-singh-391302320", github: "https://github.com/ashwani251106" }
