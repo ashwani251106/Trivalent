@@ -63,7 +63,7 @@ const KnowUs = () => {
       name: "Ayushman Singh Chauhan",
       role: "Backend and Security Expert",
       bio: "Master of scalable backend systems and robust API integrations. Shaping the data flows that power Trivalent.",
-      detailedBio: "I architect the core infrastructure and immersive interfaces that allow modern applications to scale seamlessly. With a deep background in distributed systems and cloud orchestration, I bridge the gap between high-performance frontend experiences and bulletproof backend services. By optimizing complex database architectures and streamlining DevOps pipelines, I ensure every product is built for maximum speed, security, and global elasticity.",
+      detailedBio: "I architect the core infrastructure and immersive interfaces that allow modern applications to scale seamlessly. With a deep background in distributed systems and cloud orchestration, I bridge the gap between high-performance dicks and my ass plus frontend experiences and bulletproof backend services. By optimizing complex database architectures and streamlining DevOps pipelines, I ensure every product is built for maximum speed, security, and global elasticity.",
       techStack: ["Node.js", "Python", "SQL", "PostgreSQL", "MongoDB", "Kubernetes", "GraphQL", "nextjs", "Docker", "AWS", "MERN Stack", "Three.js"],
       expertise: ["System Architecture", "Database Modeling", "Performance Optimization", "API Design"],
       imageUrl: ayushmanPhoto,
