@@ -76,7 +76,7 @@ const KnowUs = () => {
       bio: "Translates abstract concepts into breathtaking, intuitive user experiences that captivate and engage.",
       detailedBio: "I architect the high-performance engines and distributed systems that power modern applications. My focus is on building scalable server-side logic, optimizing complex database architectures, and ensuring rock-solid security. From API orchestration to cloud infrastructure, I design invisible yet essential systems that remain fast and stable under heavy load.",
       techStack: ["Node.js", "Python", "SQL", "PostgreSQL", "MongoDB", "Kubernetes", "nextjs", "Docker", "AWS", "MERN Stack"],
-      expertise: ["User Experience (UX)", "Interface Design (UI)", "Frontend Design", "Motion Graphics"],
+      expertise: ["API Design & Communication", "Authentication & Authorization", "Database Management", "Scalable Backend Systems"],
       imageUrl: ayanPhoto,
       links: { linkedin: "https://www.linkedin.com/in/ayan-baruah-69a455317", github: "https://github.com/ayanbaruah14" }
     },
