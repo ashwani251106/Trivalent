@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import './Navbar.css';
 import logo from '../assets/logo.png';
 
@@ -57,20 +58,46 @@ const Navbar = () => {
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div 
-              className="mobile-menu-overlay glass-panel"
-              variants={menuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
-            >
-              <div className="mobile-menu-links">
-                <a href="#home" className="mobile-link" onClick={() => setIsMenuOpen(false)}>Home</a>
-                <a href="#about" className="mobile-link" onClick={() => setIsMenuOpen(false)}>About Us</a>
-                <a href="#projects" className="mobile-link" onClick={() => setIsMenuOpen(false)}>Our Projects</a>
-                <a href="#contact" className="mobile-link btn-primary" onClick={() => setIsMenuOpen(false)}>Contact Us</a>
-              </div>
-            </motion.div>
+            <>
+              {/* Backdrop */}
+              <motion.div 
+                className="mobile-menu-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsMenuOpen(false)}
+              />
+              
+              <motion.div 
+                className="mobile-menu-overlay"
+                variants={menuVariants}
+                initial="closed"
+                animate="open"
+                exit="closed"
+              >
+                <div className="mobile-menu-links">
+                  {[
+                    { href: "#home", text: "Home" },
+                    { href: "#about", text: "About Us" },
+                    { href: "#projects", text: "Our Projects" },
+                    { href: "#contact", text: "Contact Us" }
+                  ].map((link, i) => (
+                    <motion.a
+                      key={link.text}
+                      href={link.href}
+                      className="mobile-link"
+                      initial={{ x: 50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.1 + (i * 0.1) }}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <span className="link-text">{link.text}</span>
+                      <ArrowRight size={18} className="link-icon" />
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </div>
