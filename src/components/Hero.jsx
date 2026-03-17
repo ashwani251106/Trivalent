@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import './Hero.css';
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
@@ -11,7 +12,15 @@ const Hero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const handleMouseMove = (e) => {
+      if (window.innerWidth < 768) return;
       // Calculate normalized mouse position from -1 to 1
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = (e.clientY / window.innerHeight) * 2 - 1;
@@ -19,7 +28,10 @@ const Hero = () => {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   return (
@@ -29,9 +41,9 @@ const Hero = () => {
         className="hero-blob blob-1"
         style={{ 
           y: y1,
-          x: mousePos.x * -50,
+          x: isMobile ? 0 : mousePos.x * -50,
         }}
-        animate={{
+        animate={isMobile ? {} : {
           scale: [1, 1.2, 1],
           rotate: [0, 90, 0]
         }}
@@ -41,9 +53,9 @@ const Hero = () => {
         className="hero-blob blob-2"
         style={{ 
           y: y2,
-          x: mousePos.y * -50,
+          x: isMobile ? 0 : mousePos.y * -50,
         }}
-        animate={{
+        animate={isMobile ? {} : {
           scale: [1, 1.5, 1],
           rotate: [0, -90, 0]
         }}

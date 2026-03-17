@@ -24,12 +24,15 @@ const projectsData = [
 const ProjectCard = ({ project, index, onClick }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const rotateX = useTransform(mouseY, [-100, 100], [6, -6]);
   const rotateY = useTransform(mouseX, [-100, 100], [-6, 6]);
   const glowX = useTransform(mouseX, [-100, 100], [0, 200]);
   const glowY = useTransform(mouseY, [-100, 100], [0, 200]);
 
   const handleMouseMove = (e) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left - rect.width / 2);
     mouseY.set(e.clientY - rect.top - rect.height / 2);
@@ -47,17 +50,23 @@ const ProjectCard = ({ project, index, onClick }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={() => onClick(project)}
-        style={{ rotateX, rotateY, transformPerspective: 1000 }}
-        whileHover={{ scale: 1.02 }}
+        style={{ 
+          rotateX: isMobile ? 0 : rotateX, 
+          rotateY: isMobile ? 0 : rotateY, 
+          transformPerspective: 1000 
+        }}
+        whileHover={isMobile ? {} : { scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         {/* Spotlight Glow */}
-        <motion.div
-          className="card-spotlight"
-          style={{
-            background: `radial-gradient(300px circle at ${glowX}px ${glowY}px, ${project.accentColor}20, transparent 70%)`,
-          }}
-        />
+        {!isMobile && (
+          <motion.div
+            className="card-spotlight"
+            style={{
+              background: `radial-gradient(300px circle at ${glowX}px ${glowY}px, ${project.accentColor}20, transparent 70%)`,
+            }}
+          />
+        )}
         
         {/* Accent top border */}
         <div className="card-accent-border" style={{ background: `linear-gradient(90deg, ${project.accentColor}, transparent)` }} />

@@ -10,8 +10,10 @@ import './KnowUs.css';
 const ProfileCard = ({ profile, delay, onClick }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   const handleMouseMove = ({ currentTarget, clientX, clientY }) => {
+    if (isMobile) return;
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -24,18 +26,20 @@ const ProfileCard = ({ profile, delay, onClick }) => {
         onMouseMove={handleMouseMove}
         onClick={() => onClick(profile)}
       >
-        <motion.div
-          className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100 card-glow"
-          style={{
-            background: useMotionTemplate`
-              radial-gradient(
-                400px circle at ${mouseX}px ${mouseY}px,
-                rgba(0, 210, 255, 0.15),
-                transparent 80%
-              )
-            `,
-          }}
-        />
+        {!isMobile && (
+          <motion.div
+            className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100 card-glow"
+            style={{
+              background: useMotionTemplate`
+                radial-gradient(
+                  400px circle at ${mouseX}px ${mouseY}px,
+                  rgba(0, 210, 255, 0.15),
+                  transparent 80%
+                )
+              `,
+            }}
+          />
+        )}
         <div className="card-content">
           <div className="profile-image-container">
             <div className="profile-image-bg"></div>

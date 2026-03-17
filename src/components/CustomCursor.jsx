@@ -26,12 +26,14 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e) => {
       if (
+        e.target && (
         e.target.tagName.toLowerCase() === 'a' ||
         e.target.tagName.toLowerCase() === 'button' ||
         e.target.closest('a') ||
         e.target.closest('button') ||
         e.target.classList.contains('clickable') ||
         e.target.closest('.clickable')
+        )
       ) {
         setIsHovering(true);
       } else {
@@ -49,11 +51,6 @@ const CustomCursor = () => {
   }, [cursorX, cursorY, dotX, dotY]);
 
   if (mousePos.x === 0 && mousePos.y === 0) return null;
-
-  // Don't render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
-    return null;
-  }
 
   return (
     <>

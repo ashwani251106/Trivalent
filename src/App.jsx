@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -21,11 +23,46 @@ const Footer = () => (
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Initialize Lenis for smooth scrolling
+    let lenis;
+    if (!isTouchDevice) {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (lenis) lenis.destroy();
+    };
+  }, [isTouchDevice]);
 
   return (
     <>
-      <FlowingBackground />
-      <CustomCursor />
+      <FlowingBackground isMobile={isMobile} />
+      {!isTouchDevice && <CustomCursor />}
       
       <AnimatePresence mode="wait">
         {loading && (

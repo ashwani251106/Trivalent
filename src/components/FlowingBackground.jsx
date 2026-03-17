@@ -1,11 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 import './FlowingBackground.css';
 
-const FlowingBackground = () => {
+const FlowingBackground = ({ isMobile }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (isMobile) return;
+    
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
@@ -18,15 +22,18 @@ const FlowingBackground = () => {
     resizeCanvas();
 
     // Mouse tracking
-    let mouse = { x: null, y: null, radius: 100 };
-    window.addEventListener('mousemove', (event) => {
+    let mouse = { x: null, y: null };
+    const handleMouseMove = (event) => {
       mouse.x = event.x;
       mouse.y = event.y;
-    });
-    window.addEventListener('mouseout', () => {
+    };
+    const handleMouseOut = () => {
       mouse.x = undefined;
       mouse.y = undefined;
-    });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseout', handleMouseOut);
 
     // Particle class
     class Particle {
@@ -44,60 +51,31 @@ const FlowingBackground = () => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
-        
-        // Add a glow effect based on size for variation
-        ctx.shadowBlur = this.size * 3;
-        ctx.shadowColor = this.color;
-        
         ctx.fill();
-        
-        // Reset shadow for performance on other draws
-        ctx.shadowBlur = 0;
       }
 
       update() {
+        // More efficient distance check
         if (mouse.x != null && mouse.y != null) {
-          let dx = mouse.x - this.x;
-          let dy = mouse.y - this.y;
-          let distance = Math.sqrt(dx * dx + dy * dy);
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distanceSq = dx * dx + dy * dy;
           
-          let forceDirectionX = dx / distance;
-          let forceDirectionY = dy / distance;
-          
-          // Max distance, past this the mouse has no effect
-          const maxDistance = 150;
-          
-          // Force decreases as distance increases
-          let force = (maxDistance - distance) / maxDistance;
-          
-          // If we're within the mouse radius, push the particle away smoothly
-          let directionX = (forceDirectionX * force * this.density);
-          let directionY = (forceDirectionY * force * this.density);
-          
-          if (distance < maxDistance) {
-            this.x -= directionX;
-            this.y -= directionY;
+          if (distanceSq < 22500) { // 150 * 150
+            const distance = Math.sqrt(distanceSq);
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const force = (150 - distance) / 150;
+            
+            this.x -= forceDirectionX * force * this.density;
+            this.y -= forceDirectionY * force * this.density;
           } else {
-            // Return to original position
-            if (this.x !== this.baseX) {
-              let dx = this.x - this.baseX;
-              this.x -= dx / 15;
-            }
-            if (this.y !== this.baseY) {
-              let dy = this.y - this.baseY;
-              this.y -= dy / 15;
-            }
+            this.x -= (this.x - this.baseX) * 0.1;
+            this.y -= (this.y - this.baseY) * 0.1;
           }
         } else {
-            // If no mouse interaction, slowly return to base position
-            if (this.x !== this.baseX) {
-              let dx = this.x - this.baseX;
-              this.x -= dx / 15;
-            }
-            if (this.y !== this.baseY) {
-              let dy = this.y - this.baseY;
-              this.y -= dy / 15;
-            }
+          this.x -= (this.x - this.baseX) * 0.1;
+          this.y -= (this.y - this.baseY) * 0.1;
         }
       }
     }
@@ -105,17 +83,15 @@ const FlowingBackground = () => {
     let particlesArray = [];
     const init = () => {
       particlesArray = [];
-      const numberOfParticles = (canvas.width * canvas.height) / 8000;
+      // Fixed particle count on desktop for stability
+      const numberOfParticles = Math.min((window.innerWidth * window.innerHeight) / 10000, 200);
       const colors = ['#00e5ff', '#ff2a6d', '#b300ff', '#ffffff'];
       
       for (let i = 0; i < numberOfParticles; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
-        // Randomly assign one of the brand colors
         let color = colors[Math.floor(Math.random() * colors.length)];
-        // Make most particles white, occasionally colored
         if(Math.random() > 0.2) color = 'rgba(255, 255, 255, 0.4)';
-        else color = color;
         
         particlesArray.push(new Particle(x, y, color));
       }
@@ -135,9 +111,15 @@ const FlowingBackground = () => {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseout', handleMouseOut);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return <div className="flowing-background mobile-dark" />;
+  }
 
   return (
     <div className="flowing-background">
