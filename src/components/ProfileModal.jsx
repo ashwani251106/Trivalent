@@ -46,8 +46,10 @@ const ProfileModal = ({ profile, isOpen, onClose }) => {
                 <h2 className="modal-name">{profile.name}</h2>
                 <div className="modal-role text-gradient">{profile.role}</div>
                 <div className="modal-socials">
-                  <a href={profile.links?.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="social-icon clickable">Linkedin</a>
-                  <a href={profile.links?.github || "#"} target="_blank" rel="noopener noreferrer" className="social-icon clickable">Github</a>
+                 
+                 <a href={profile.links?.linkedin || "#"} target="_blank" rel="noopener noreferrer" className='links'>Linkedin</a>
+              
+                  <a href={profile.links?.github || "#"} target="_blank" rel="noopener noreferrer" className='links'>Github</a>
                 </div>
               </div>
             </div>

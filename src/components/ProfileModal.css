@@ -170,7 +170,14 @@
   left: 0;
   color: var(--accent-red);
 }
-
+.links{
+  margin: 2px;
+  border: 1px solid rgb(87, 82, 82);
+  padding: 6px;
+  border-radius: 20px ;
+  text-decoration: none;
+  color: white;
+}
 @media (max-width: 600px) {
   .modal-content {
     padding: 24px;
