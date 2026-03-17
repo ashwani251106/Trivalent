@@ -50,6 +50,11 @@ const CustomCursor = () => {
 
   if (mousePos.x === 0 && mousePos.y === 0) return null;
 
+  // Don't render on touch devices
+  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+    return null;
+  }
+
   return (
     <>
       <motion.div

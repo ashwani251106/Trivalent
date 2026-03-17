@@ -182,3 +182,13 @@
     border-right-color: var(--border);
   }
 }
+
+@media (max-width: 768px) {
+  footer {
+    padding: 40px 5% !important;
+  }
+  
+  footer h2 {
+    font-size: 1.5rem !important;
+  }
+}

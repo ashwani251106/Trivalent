@@ -7,9 +7,20 @@
 
 .projects-grid-new {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 450px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 32px;
   justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .projects-grid-new {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .project-card-info {
+    padding: 20px;
+  }
 }
 
 .project-card-new {
